@@ -28,6 +28,21 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
+const errorMessage = () =>
+  iziToast.show({
+    title: 'Error:',
+    message: 'Please choose a date in the future.',
+    backgroundColor: '#EF4040',
+    titleColor: '#fff',
+    messageColor: '#fff',
+    progressBarColor: '#B51B1B',
+    position: 'topRight',
+    onOpening: function () {
+      document.querySelector('.iziToast').style.fontFamily =
+        'Montserrat, sans-serif';
+    },
+  });
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -37,10 +52,7 @@ const options = {
     userSelectedDate = selectedDates[0];
     const now = new Date();
     if (userSelectedDate <= now) {
-      iziToast.error({
-        title: 'Error',
-        message: 'Please choose a date in the future.',
-      });
+      errorMessage();
       startButton.disabled = true;
     } else {
       startButton.disabled = false;
@@ -73,14 +85,12 @@ startButton.addEventListener('click', () => {
   const now = new Date();
 
   if (!userSelectedDate || userSelectedDate <= now) {
-    iziToast.error({
-      title: 'Error',
-      message: 'Please choose a date in the future.',
-    });
+    errorMessage();
     return;
   }
 
   startButton.disabled = true;
   startCountdown();
 });
+
 startButton.disabled = true;
