@@ -1,0 +1,7 @@
+.form {
+  width: 360px;
+}
+.delay-label {
+  display: flex;
+  flex-direction: column;
+}
